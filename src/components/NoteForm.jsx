@@ -3,7 +3,6 @@ import { noteDel } from "../redux/modules/note";
 
 const NoteForm = () => {
   const notes = useSelector((state) => state.note);
-  console.log("note", notes);
   const dispatch = useDispatch();
   return (
     <div>
