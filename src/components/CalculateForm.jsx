@@ -11,7 +11,7 @@ const CalculateForm = () => {
 
   useEffect(() => {
     if (value !== undefined) {
-      dispatch(noteAdd({ number: result.number }));
+      dispatch(noteAdd({ id: new Date().getTime(), number: result.number }));
     }
   }, [result.number, dispatch]);
 

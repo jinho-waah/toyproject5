@@ -8,22 +8,21 @@ export const noteAdd = (payload) => {
   };
 };
 
-export const noteLOG = (payload) => {
+export const noteDel = (payload) => {
   return {
     type: DEL,
     payload,
   };
 };
 
-const initialState = [{ value: 0 }];
+// const initialState = [{ value: 0 }];
 
-const note = (state = initialState, action) => {
-  const number = Number(action.payload?.number);
+const note = (state = [], action) => {
   switch (action.type) {
     case ADD:
       return [...state, action.payload];
     case DEL:
-      return [{ number: Math.log(number) }];
+      return state.filter((todo) => todo.id !== action.payload);
     default:
       return state;
   }
