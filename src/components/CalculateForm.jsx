@@ -1,18 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { calCOS, calLN, calRoot, calSIN, calTAN } from "../redux/modules/calc";
 import { noteAdd } from "../redux/modules/note";
 
 const CalculateForm = () => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState();
+  const [calculationTriggered, setCalculationTriggered] = useState(false);
   const dispatch = useDispatch();
   const result = useSelector((state) => state.calc);
 
-  const handleCalculation = (calculationAction) => {
-    if (value !== 0) {
-      dispatch(calculationAction({ number: value }));
+  useEffect(() => {
+    if (calculationTriggered) {
       dispatch(noteAdd({ id: new Date().getTime(), number: result.number }));
+      setCalculationTriggered(false);
     }
+  }, [result.number, calculationTriggered, dispatch]);
+
+  const handleCalculation = (calculationAction) => {
+    dispatch(calculationAction({ number: value }));
+    setCalculationTriggered(true);
   };
 
   return (
